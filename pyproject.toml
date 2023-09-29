@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "fcp_youtube_chapter"
+version = "0.1.0"
+description = ""
+authors = ["Jeff Ye <jeffyecn@gmail.com>"]
+license = "GNU"
+
+[tool.poetry.scripts]
+fcp-youtube-chapter = "fcp_youtube_chapter.__main__:extract_chapters"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

@@ -1,8 +1,10 @@
 import argparse
 import pathlib
-from . import marker as fcp_youtube_chapter_marker
 import sys
 import xml.etree.ElementTree
+
+from . import marker as fcp_youtube_chapter_marker
+
 
 def extract_chapters():
     parser = argparse.ArgumentParser(description='Extract chapters from Final Cut Pro XML file')
@@ -13,8 +15,11 @@ def extract_chapters():
     fcp_root = xml.etree.ElementTree.parse(fcp_xml_file).getroot()
     markers = fcp_youtube_chapter_marker.get_all_markers(fcp_root)
     print("=== Chapters ===")
+    printed = []
     for marker in markers:
-        print(f"{int(marker.timestamp/60):d}:{int(marker.timestamp)%60:02d} {marker.name}")
+        if marker.name not in printed:
+            printed.append(marker.name)
+            print(f"{int(marker.timestamp / 60):d}:{int(marker.timestamp) % 60:02d} {marker.name}")
 
 
 def get_fcp_xml_file(fcp_xml_bundle):

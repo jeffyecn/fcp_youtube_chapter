@@ -18,7 +18,7 @@ def extract_chapters():
     print("0:00 Begin")
     for marker in markers:
         print(f"{get_time_string(marker.timestamp)} {marker.name}")
-    print(f"{get_time_string(fcpxml.get_project_duration(fcp_root))}: End")
+    print(f"{get_time_string(fcpxml.get_project_duration(fcp_root))} End")
 
 
 def get_time_string(seconds):

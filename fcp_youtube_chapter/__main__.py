@@ -3,7 +3,7 @@ import pathlib
 import sys
 import xml.etree.ElementTree
 
-from . import marker as fcp_youtube_chapter_marker
+from . import fcpxml
 
 
 def extract_chapters():
@@ -13,13 +13,16 @@ def extract_chapters():
     args = parser.parse_args()
     fcp_xml_file = get_fcp_xml_file(args.fcp_xml_bundle[0])
     fcp_root = xml.etree.ElementTree.parse(fcp_xml_file).getroot()
-    markers = fcp_youtube_chapter_marker.get_all_markers(fcp_root)
+    markers = fcpxml.get_all_markers(fcp_root)
     print("=== Chapters ===")
-    printed = []
+    print("0:00 Begin")
     for marker in markers:
-        if marker.name not in printed:
-            printed.append(marker.name)
-            print(f"{int(marker.timestamp / 60):d}:{int(marker.timestamp) % 60:02d} {marker.name}")
+        print(f"{get_time_string(marker.timestamp)} {marker.name}")
+    print(f"{get_time_string(fcpxml.get_project_duration(fcp_root))}: End")
+
+
+def get_time_string(seconds):
+    return f"{int(seconds / 60):d}:{int(seconds) % 60:02d}"
 
 
 def get_fcp_xml_file(fcp_xml_bundle):
